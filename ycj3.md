@@ -35,12 +35,16 @@
 
 ## 已调通接口
 为了醒目，这里先列出后端已经调通的接口，及所使用参数、和返回值。也可以把它们当作例子看待。
+| Name | Academy | score | 
+| - | :-: | -: | 
+| Harry Potter | Gryffindor| 90 | 
+| Hermione Granger | Gryffindor | 100 | 
+| Draco Malfoy | Slytherin | 90 |
+
 |接口|输入|返回|
-| :----------------------------: | :-----------------------------------: | :-----------------------------------: |
-|/api/v1/ping|无|Your IP is: xxx|
-|/api/v1/check_version|{"v":1}|OK|
-|/api/v1/login_by_openID|{"openID":"huYd1lnQgQrEJp0W"}|{"coin":10000,"gem":10,"usn":2,"totalWinScore":0,"sex":1,"isguest":1,"nick":"default user","card":50}|
-|/api/v1/login_guest|{"a":"ASDF"}|{"openID":"huYd1lnQgQrEJp0W"}|
+| :-- | :--  | :-- |
+| /api/v1/ping |无|Your IP is: xxx|
+
 
 
 ## 具体接口说明
