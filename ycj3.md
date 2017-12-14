@@ -40,8 +40,8 @@
 | :-- | :--  | :-- |
 | /api/v1/ping |无|Your IP is: xxx|
 | /api/v1/check_version | {"v":1} |OK|
-| /api/v1/login_by_openID |{"openID":"huYd1lnQgQrEJp0W"}|{"coin":10000,"gem":10,"usn":2,"totalWinScore":0,"sex":1,"isguest":1,"nick":"default user","card":50}|
-| /api/v1/login_guest | {"a":"ASDF"}|{"openID":"huYd1lnQgQrEJp0W"}|
+| /api/v1/login_by_openID |{"openID":"qVlykXHDNZWJwGA8"}|{"coin":10000,"gem":10,"usn":2,"totalWinScore":0,"sex":1,"isguest":1,"nick":"default user","card":50}|
+| /api/v1/login_guest | {"a":"ASDF"}|{"openID":"qVlykXHDNZWJwGA8"}|
 
 
 ## 具体接口说明
