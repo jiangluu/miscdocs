@@ -24,9 +24,9 @@
 注意以上所说的返回都是在HTTP的上一层。如果前端请求的url错误，HTTP本身会返回404之类，根本不会进入我们的系统。
 
 ## 服务地址
-目前开发阶段地址为 http://101.132.111.230:38080/ 。客户端应把此地址写成可配置的。
+目前开发阶段地址为 http://118.25.8.189:38080/ 。客户端应把此地址写成可配置的。
 
-此地址拼上具体接口就是完整的url， 如ping接口的完整url就是 http://101.132.111.230:38080/api/v1/ping 。
+此地址拼上具体接口就是完整的url， 如ping接口的完整url就是 http://118.25.8.189:38080/api/v1/ping 。
 
 ## 如何调试接口
 在客户端代码中写完逻辑后，靠实际运行游戏来调用后端接口比较繁琐，建议使用工具直接向后端发送请求，来验证后端接口的正确性。
@@ -40,14 +40,22 @@
 | :-- | :--  | :-- |
 | /api/v1/ping |无|Your IP is: xxx|
 | /api/v1/check_version | {"v":1} |OK|
-| /api/v1/login_by_openID |{"openID":"qVlykXHDNZWJwGA8"}|{"coin":10000,"gem":10,"usn":2,"totalWinScore":0,"sex":1,"isguest":1,"nick":"default user","card":50}|
-| /api/v1/login_guest | {"a":"ASDF"}|{"openID":"qVlykXHDNZWJwGA8"}|
+| /api/v1/login_by_openID |{"openID":"Og26tzlEbNpdhqru"}|{"gem":10,"coin":10000,"card":50,"isguest":1,"ctime":1515904931,"usn":1,"sex":1,"totalWinScore":0,"nick":"default user"}|
+| /api/v1/login_guest | {"a":"ASDF"}|{"openID":"Og26tzlEbNpdhqru"}|
+| /api/v1/create_room |{"openID":"Og26tzlEbNpdhqru","N":4, "room_type":"SRGP","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|{"room_key":"751958"}|
+| /api/v1/get_user_room | {"openID":"Og26tzlEbNpdhqru"}|{"joined":["1"],"key":"751958","openID":"Og26tzlEbNpdhqru","N":4,"url":"ws:\/\/8.8.8.8:88","room_type":"SRGP","owner":"1","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
+| /api/v1/join_room |{"openID":"Og26tzlEbNpdhqru","key":"751958"}|{"joined":["1"],"key":"751958","openID":"Og26tzlEbNpdhqru","N":4,"url":"ws:\/\/8.8.8.8:88","room_type":"SRGP","owner":"1","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
+| /api/v1/quit_room | {"openID":"Og26tzlEbNpdhqru"} |OK|
+| /api/roomserv/fetch_user_by_usn | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "usn":1} |{"gem":10,"coin":10000,"card":50,"isguest":1,"sex":1,"usn":1,"ctime":1515904931,"totalWinScore":0,"nick":"default user"}|
+| /api/roomserv/fetch_room | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "key":"751958"}|{"owner":"1","openID":"Og26tzlEbNpdhqru","N":4,"url":"ws:\/\/8.8.8.8:88","room_type":"SRGP","key":"751958","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 
 
 ## 具体接口说明
 ##### /api/v1/ping
 健康检查（业务上不需要，只是程序上用，或者可用于测试网速等）
 
+### 客户端用
+下面所列这些API是为客户端访问准备的。此外还有为实现具体游戏玩法的游戏服务器准备的API，请查看 游戏服务用 一节。
 ##### /api/v1/check_version
 检查客户端版本是否够新。
 
@@ -167,14 +175,48 @@
 
 参数：openID
 
-返回：一个json串
+返回：一个json串。如果当前不在房间里，json串里没有内容；反之则包含房间信息
+
+##### /api/v1/quit_room
+离开当前自己所在房间。不管自己当前在不在房间里，此请求都可以调，并返回成功。
+
+参数：openID
+
+返回OK表示成功。
 
 ##### /api/v1/create_room
-新建房间
+新建房间。
 
-参数： 类似 {"room_type":"SRGP","room_param":"ZR0;1FEN;8JU;FD8;FZPAY","time":1512655446,"openID":"ABCD1234" } ，其中字段的取值均尽量与旧版保持相同。
+参数： openID:通用  N:房间人数   room_type:此房间内具体游戏类型  room_param:此房间内具体游戏参数
+例子： { "N":4, "room_type":"SRGP","room_param":"ZR0;1FEN;8JU;FD8;FZPAY","openID":"ABCD1234" } 
 
-返回：一个json串
+详细说明：作为平台，需要支持多个游戏，且以后很可能随着业务开展越来越多；平台对于 room_param 参数表示什么含义是完全不知道的，只是代为存贮下来；平台对于 room_type 参数的含义也所知十分有限，平台只负责找到能处理此种游戏类型的游戏服务器而已。支持的游戏类型需要与客户端约定。
+
+返回：json串 {"room_key":"6位数字"}
+
+##### /api/v1/join_room
+请求进入房间。即使是创建房间的人，如果想玩游戏也需要调用此API进入房间。因为我的理解中，开房间的人不一定进去玩（如果此理解不对则修改这里）
+
+参数： openID:通用  key：房间钥匙
+
+返回一个json串，包含房间信息(当初客户端创建房间时指定的)，游戏服务器url，可以据此去连接负责此房间的具体游戏服务器。
+
+
+### 游戏服务用
+游戏服务用API有一个通用参数 app_secure， 每个请求都需要包含这个参数， 值目前是 cf7jvlKrhvCIqrfJM6cp 。
+##### /api/roomserv/fetch_user_by_usn
+根据usn获取用户信息。
+
+参数： app_secure：通用； usn：用户id（客户端连接游戏服务器以后应该上报的）。
+
+返回：json串，包含此用户所有信息。
+
+##### /api/roomserv/fetch_room
+根据房间key获取房间信息。
+
+参数： app_secure：通用； key：房间key
+
+返回：json串，包含房间信息（创建房间时设定了哪些信息，这里就会得到哪些）
 
 
 ### 错误码
@@ -183,6 +225,7 @@
 |215|令牌(openID)不存在或失效|
 |220|账号被冻结|
 |222|客户端版本不支持|
+|224|app_secure无效|
 |301|必须提供密码|
 |302|密码不符|
 |303|必须提供手机号码|
@@ -192,5 +235,10 @@
 |308|不合法的唯一串号（游客登录时）|
 |309|微信验证失败|
 |310|QQ验证失败|
+|320|不合法的房间类型（创建房间时）|
+|321|查无此房|
+|322|你已经在一个房间里，不能再加入房间(离开房间后可以)|
+|323|房间已经满了(这个是否应该由平台判断？)|
+|324|查无此人|
 |380,381|其他内部错误|
 |403|必要参数不存在|
