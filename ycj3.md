@@ -44,11 +44,11 @@
 | /api/v1/login_by_openID |{"openID":"Og26tzlEbNpdhqru"}|{"gem":10,"coin":10000,"card":50,"isguest":1,"ctime":1515904931,"usn":1,"sex":1,"totalWinScore":0,"nick":"default user"}|
 | /api/v1/login_guest | {"a":"ASDF"}|{"openID":"Og26tzlEbNpdhqru"}|
 | /api/v1/create_room |{"openID":"Og26tzlEbNpdhqru","N":4, "room_type":"SRGP","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|{"room_key":"751958"}|
-| /api/v1/get_user_room | {"openID":"Og26tzlEbNpdhqru"}|{"joined":["1"],"key":"751958","openID":"Og26tzlEbNpdhqru","N":4,"url":"ws:\/\/8.8.8.8:88","room_type":"SRGP","owner":"1","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
-| /api/v1/join_room |{"openID":"Og26tzlEbNpdhqru","key":"751958"}|{"joined":["1"],"key":"751958","openID":"Og26tzlEbNpdhqru","N":4,"url":"ws:\/\/8.8.8.8:88","room_type":"SRGP","owner":"1","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
+| /api/v1/get_user_room | {"openID":"Og26tzlEbNpdhqru"}|{"room_type":"SRGP","secure":"pKqUwVzyVbDhjaOF","openID":"mRq2gbvm41iChLSY","joined":["1"],"N":4,"url":"ws:\/\/8.8.8.8:88","owner":"1","key":"987108","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
+| /api/v1/join_room |{"openID":"Og26tzlEbNpdhqru","key":"751958"}|{"room_type":"SRGP","secure":"pKqUwVzyVbDhjaOF","openID":"mRq2gbvm41iChLSY","joined":["1"],"N":4,"url":"ws:\/\/8.8.8.8:88","owner":"1","key":"987108","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 | /api/v1/quit_room | {"openID":"Og26tzlEbNpdhqru"} |OK|
 | /api/roomserv/fetch_user_by_usn | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "usn":1} |{"gem":10,"coin":10000,"card":50,"isguest":1,"sex":1,"usn":1,"ctime":1515904931,"totalWinScore":0,"nick":"default user"}|
-| /api/roomserv/fetch_room | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "key":"751958"}|{"owner":"1","openID":"Og26tzlEbNpdhqru","N":4,"url":"ws:\/\/8.8.8.8:88","room_type":"SRGP","key":"751958","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
+| /api/roomserv/fetch_room | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "key":"751958"}|{"joined":[{"secure":"fZAEwx81ynkGI3Hb","usn":"1"}],"room_type":"SRGP","openID":"mRq2gbvm41iChLSY","N":4,"url":"ws:\/\/8.8.8.8:88","key":"987108","owner":"1","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 
 
 ## 具体接口说明
