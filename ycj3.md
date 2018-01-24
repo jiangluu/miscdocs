@@ -47,6 +47,7 @@
 | /api/v1/get_user_room | {"openID":"Og26tzlEbNpdhqru"}|{"room_type":"SRGP","secure":"pKqUwVzyVbDhjaOF","openID":"mRq2gbvm41iChLSY","joined":["1"],"N":4,"url":"ws:\/\/8.8.8.8:88","owner":"1","key":"987108","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 | /api/v1/join_room |{"openID":"Og26tzlEbNpdhqru","key":"751958"}|{"room_type":"SRGP","secure":"pKqUwVzyVbDhjaOF","openID":"mRq2gbvm41iChLSY","joined":["1"],"N":4,"url":"ws:\/\/8.8.8.8:88","owner":"1","key":"987108","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 | /api/v1/quit_room | {"openID":"Og26tzlEbNpdhqru"} |OK|
+| /api/v1/check_mail | {"openID":"mRq2gbvm41iChLSY"} |{"unread_mail":false}|
 | /api/roomserv/fetch_user_by_usn | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "usn":1} |{"gem":10,"coin":10000,"card":50,"isguest":1,"sex":1,"usn":1,"ctime":1515904931,"totalWinScore":0,"nick":"default user"}|
 | /api/roomserv/fetch_room | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "key":"751958"}|{"joined":[{"secure":"fZAEwx81ynkGI3Hb","usn":"1"}],"room_type":"SRGP","openID":"mRq2gbvm41iChLSY","N":4,"url":"ws:\/\/8.8.8.8:88","key":"987108","owner":"1","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 
@@ -156,12 +157,12 @@
 
 返回json串，包含当前所有公告
 
-##### /api/v1/pull_mail_page
-拉取邮件。
+##### /api/v1/check_mail
+检查邮件，同时更新自己的钻石、金币等货币。
 
 参数：l,m: 拉取从第l封到第m封的邮件。从0开始。可以都省略，后端默认拉取前5封邮件。
 
-返回json串。如果没有邮件，则 json反序列化后是没有内容的。
+返回json串。最简单的结果是 {"unread_mail":false} ，表示没有未读邮件（但可以有已读邮件）。客户端可以根据 unread_mail 字段显示红点。如果有邮件（不管已读未读），会有 mails字段，是一个数组。如果有货币改变，会有 refresh字段，包含货币的最新值。
 
 ##### /api/v1/pay
 付费充值。
@@ -218,6 +219,14 @@
 参数： app_secure：通用； key：房间key
 
 返回：json串，包含房间信息（创建房间时设定了哪些信息，这里就会得到哪些）
+
+##### /api/roomserv/push_room_round_stat
+游戏服务器推送游戏简报给平台。
+
+参数： app_secure：通用； key：房间key   round：第几局（从1开始）   stat：9-此局结算 1-此局开始打   
+over：为非0值表示房间规定的局数都打完了    report：简报内容，当stat是结算时需要有这个字段，具体内容需要与游戏服务器商议
+
+返回：OK表示推送成功。（因为这个数据很重要，如不成功游戏服务器应重试至少5次）
 
 
 ### 错误码
