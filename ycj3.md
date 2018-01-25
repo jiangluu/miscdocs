@@ -47,7 +47,7 @@
 | /api/v1/get_user_room | {"openID":"Og26tzlEbNpdhqru"}|{"room_type":"SRGP","secure":"pKqUwVzyVbDhjaOF","openID":"mRq2gbvm41iChLSY","joined":["1"],"N":4,"url":"ws:\/\/8.8.8.8:88","owner":"1","key":"987108","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 | /api/v1/join_room |{"openID":"Og26tzlEbNpdhqru","key":"751958"}|{"room_type":"SRGP","secure":"pKqUwVzyVbDhjaOF","openID":"mRq2gbvm41iChLSY","joined":["1"],"N":4,"url":"ws:\/\/8.8.8.8:88","owner":"1","key":"987108","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 | /api/v1/quit_room | {"openID":"Og26tzlEbNpdhqru"} |OK|
-| /api/v1/check_mail | {"openID":"mRq2gbvm41iChLSY"} |{"unread_mail":false}|
+| /api/v1/check_mail | {"openID":"mRq2gbvm41iChLSY"} |{"mails":[{"title":"2nd"},{"title":"1st"}],"refresh":{"coin":10088,"gem":10,"card":50},"unread_mail":true}|
 | /api/roomserv/fetch_user_by_usn | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "usn":1} |{"gem":10,"coin":10000,"card":50,"isguest":1,"sex":1,"usn":1,"ctime":1515904931,"totalWinScore":0,"nick":"default user"}|
 | /api/roomserv/fetch_room | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "key":"751958"}|{"joined":[{"secure":"fZAEwx81ynkGI3Hb","usn":"1"}],"room_type":"SRGP","openID":"mRq2gbvm41iChLSY","N":4,"url":"ws:\/\/8.8.8.8:88","key":"987108","owner":"1","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 
