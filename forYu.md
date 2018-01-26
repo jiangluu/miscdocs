@@ -15,8 +15,9 @@
 - etime: 在游戏后端事件发生的时间
 - usn: 此事件是与哪个玩家挂钩
 大部分事件还会有 detail字段，包含详细信息。
-一个例子：
+
+两个简单的例子：
 ```json
-{  typ:"new_user",  "ctime":1515904931, "usn":1, "detail":{"gem":10,"sex":1,"card":50,"isguest":1,"coin":10088,"usn":1,"ctime":1515904931,"totalWinScore":0,"nick":"default user"} }
-{  typ:"login",  "ctime":1515905031, "usn":1 }
+{  "typ":"new_user",  "ctime":1515904931, "usn":1, "detail":{"gem":10,"sex":1,"card":50,"isguest":1,"coin":10088,"usn":1,"ctime":1515904931,"totalWinScore":0,"nick":"default user"} }
+{  "typ":"login",  "ctime":1515905031, "usn":1 }
 ```
