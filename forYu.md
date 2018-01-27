@@ -19,6 +19,6 @@
 
 两个简单的例子：
 ```json
-{  "typ":"new_user",  "ctime":1515904931, "usn":1, "detail":{"gem":10,"sex":1,"card":50,"isguest":1,"coin":10088,"usn":1,"ctime":1515904931,"totalWinScore":0,"nick":"default user"} }
-{  "typ":"login",  "ctime":1515905031, "usn":1 }
+{  "typ":"new_user",  "ctime":1515904931, "usn":100000, "detail":{"ver":1,"isguest":1,"ban_score":0,"ctime":1517038051,"RMB":0,"ban_gold":10000,"usn":100000,"gold":0,"nick":"default user","ban_diamond":10,"diamond":0,"score":0,"credit":0,"vip_level":1} }
+{  "typ":"login",  "ctime":1515905031, "usn":100000 }
 ```

@@ -41,14 +41,14 @@
 | :-- | :--  | :-- |
 | /api/v1/ping |无|Your IP is: xxx|
 | /api/v1/check_version | {"v":1} |OK|
-| /api/v1/login_by_openID |{"openID":"Og26tzlEbNpdhqru"}|{"gem":10,"coin":10000,"card":50,"isguest":1,"ctime":1515904931,"usn":1,"sex":1,"totalWinScore":0,"nick":"default user"}|
+| /api/v1/login_by_openID |{"openID":"Og26tzlEbNpdhqru"}|{"ver":1,"isguest":1,"ban_score":0,"ctime":1517038051,"RMB":0,"ban_gold":10000,"usn":100000,"gold":0,"nick":"default user","ban_diamond":10,"diamond":0,"score":0,"credit":0,"vip_level":1}|
 | /api/v1/login_guest | {"a":"ASDF"}|{"openID":"Og26tzlEbNpdhqru"}|
 | /api/v1/create_room |{"openID":"Og26tzlEbNpdhqru","N":4, "room_type":"SRGP","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|{"room_key":"751958"}|
 | /api/v1/get_user_room | {"openID":"Og26tzlEbNpdhqru"}|{"room_type":"SRGP","secure":"pKqUwVzyVbDhjaOF","openID":"mRq2gbvm41iChLSY","joined":["1"],"N":4,"url":"ws:\/\/8.8.8.8:88","owner":"1","key":"987108","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 | /api/v1/join_room |{"openID":"Og26tzlEbNpdhqru","key":"751958"}|{"room_type":"SRGP","secure":"pKqUwVzyVbDhjaOF","openID":"mRq2gbvm41iChLSY","joined":["1"],"N":4,"url":"ws:\/\/8.8.8.8:88","owner":"1","key":"987108","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 | /api/v1/quit_room | {"openID":"Og26tzlEbNpdhqru"} |OK|
 | /api/v1/check_mail | {"openID":"mRq2gbvm41iChLSY"} |{"mails":[{"title":"2nd"},{"title":"1st"}],"refresh":{"coin":10088,"gem":10,"card":50},"unread_mail":true}|
-| /api/roomserv/fetch_user_by_usn | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "usn":1} |{"gem":10,"coin":10000,"card":50,"isguest":1,"sex":1,"usn":1,"ctime":1515904931,"totalWinScore":0,"nick":"default user"}|
+| /api/roomserv/fetch_user_by_usn | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "usn":1} |{"ver":1,"isguest":1,"ban_score":0,"ctime":1517038051,"RMB":0,"ban_gold":10000,"usn":100000,"gold":0,"nick":"default user","ban_diamond":10,"diamond":0,"score":0,"credit":0,"vip_level":1}|
 | /api/roomserv/fetch_room | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "key":"751958"}|{"joined":[{"secure":"fZAEwx81ynkGI3Hb","usn":"1"}],"room_type":"SRGP","openID":"mRq2gbvm41iChLSY","N":4,"url":"ws:\/\/8.8.8.8:88","key":"987108","owner":"1","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 
 
@@ -72,7 +72,7 @@
 
 参数：openID
 
-返回：包含所有用户数据的json串，例子： {"coin":10000,"gem":10,"usn":2,"totalWinScore":0,"sex":1,"isguest":1,"nick":"default user","card":50}
+返回：包含所有用户数据的json串，例子： {"ver":1,"isguest":1,"ban_score":0,"ctime":1517038051,"RMB":0,"ban_gold":10000,"usn":100000,"gold":0,"nick":"default user","ban_diamond":10,"diamond":0,"score":0,"credit":0,"vip_level":1}
 
 ##### /api/v1/logout
 下线。当客户端关闭时，尽可能调用这个。有利于做在线时长统计等
