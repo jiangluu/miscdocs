@@ -48,6 +48,12 @@
 | /api/v1/join_room |{"openID":"Og26tzlEbNpdhqru","key":"751958"}|{"room_type":"SRGP","secure":"pKqUwVzyVbDhjaOF","openID":"mRq2gbvm41iChLSY","joined":["1"],"N":4,"url":"ws:\/\/8.8.8.8:88","owner":"1","key":"987108","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 | /api/v1/quit_room | {"openID":"Og26tzlEbNpdhqru"} |OK|
 | /api/v1/check_mail | {"openID":"mRq2gbvm41iChLSY"} |{"mails":[{"title":"2nd"},{"title":"1st"}],"refresh":{"coin":10088,"gem":10,"card":50},"unread_mail":true}|
+| /api/v1/pay_begin | {"openID":"39gowN8wCuNfuh5V", "productID":"cheshi2","android_or_iOS":"1","pay_type":"0" } |{"status":0, ,"type":1,"code":3,"pay_url":"https://gzwkzf.cmbc.com.cn/p
+ayment-gate-web/wxH5Pay?url=https%3A%2F%2Fwx.tenpay.com%2Fcgi-bin%2Fm
+mpayweb-bin%2Fcheckmweb%3Fprepay_id%3Dwx20171116161333facc97c79801082
+89476%26package%3D2303587125%26redirect_url%3Dhttp%253A%252F%252Flftp
+ay.jieshenkj.com%252Fwx_pay%252Fcallback.jsp%253Fno%253Dee8RDWMeTyGsz
+JG9rzy9FyTPsI" }|
 | /api/roomserv/fetch_user_by_usn | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "usn":1} |{"ver":1,"isguest":1,"ban_score":0,"ctime":1517038051,"RMB":0,"ban_gold":10000,"usn":100000,"gold":0,"nick":"default user","ban_diamond":10,"diamond":0,"score":0,"credit":0,"vip_level":1}|
 | /api/roomserv/fetch_room | {"app_secure":"cf7jvlKrhvCIqrfJM6cp", "key":"751958"}|{"joined":[{"secure":"fZAEwx81ynkGI3Hb","usn":"1"}],"room_type":"SRGP","openID":"mRq2gbvm41iChLSY","N":4,"url":"ws:\/\/8.8.8.8:88","key":"987108","owner":"1","room_param":"ZR0;1FEN;8JU;FD8;FZPAY"}|
 
@@ -164,12 +170,16 @@
 
 返回json串。最简单的结果是 {"unread_mail":false} ，表示没有未读邮件（但可以有已读邮件）。客户端可以根据 unread_mail 字段显示红点。如果有邮件（不管已读未读），会有 mails字段，是一个数组。如果有货币改变，会有 refresh字段，包含货币的最新值。
 
-##### /api/v1/pay
-付费充值。
+##### /api/v1/pay_begin
+开始付费充值流程。整个充值流程根据第三方支付的文档归纳如下图：
 
-参数：付费SDK给的所有信息
+![image](https://picabstract-preview-ftn.weiyun.com:8443/ftn_pic_abs_v2/63320844712d2cda0dfbcc373f96798a46ac11d468050a6fede4e59aaf549924300881fa66d3ba79a8077c12e0d4f21d?pictype=scale&from=30113&version=2.0.0.2&uin=439765693&fname=OIROEE6%5D%7B0S%2463E_IVN%28DIJ.png&size=1024)
 
-返回：用户完整信息的json串（与登录的一样）
+参数：openID：openID  productID：要买东西的id  android_or_iOS：字符串1-客户端是安卓，字符串2-是iOS  pay_type：字符串0-微信支付，字符串1-支付宝支付
+
+返回：预订单，json格式。内容就是第三方支付给平台的，平台不加修改。其中最重要的是 status字段，如为0表示下单成功，客户端可调起支付SDK；不为0则是各种错误。
+
+附加说明：由于平台与客户端是短连接，支付后，客户端需要向平台拉取充值结果。通过 check_mail 接口拉取。
 
 
 ##### /api/v1/get_user_room
