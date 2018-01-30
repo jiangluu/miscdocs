@@ -22,3 +22,38 @@
 {  "typ":"new_user",  "ctime":1515904931, "usn":100000, "detail":{"ver":1,"isguest":1,"ban_score":0,"ctime":1517038051,"RMB":0,"ban_gold":10000,"usn":100000,"gold":0,"nick":"default user","ban_diamond":10,"diamond":0,"score":0,"credit":0,"vip_level":1} }
 {  "typ":"login",  "ctime":1515905031, "usn":100000 }
 ```
+
+#### 游戏的六种货币
+|字段名|表示货币|
+| :------: | :---------: |
+|diamond|钻石|
+|gold|金币|
+|score|分|
+|ban_diamond|绑钻|
+|ban_gold|绑金|
+|ban_score|绑分|
+
+在用户数据里面的、邮件里的、或其他json里的，只要是表示这六种货币的，统一用这相同的字段名表示。
+
+### 平台给后台开放的API
+- 接口是HTTP或HTTPS协议。原则上都是POST请求
+- 参数都封装成一个json串，在请求的Body里（而不是在uri里）
+- 返回标准HTTP Response
+
+##### /api/gmtool/send_mail_single
+给指定usn的单个用户发游戏内邮件。
+
+（注：游戏平台这边不支持带条件的过滤出玩家然后群发邮件，因为平台这边的数据库不是SQL。如果要群发，需要后台这边重复调用此接口）
+
+参数： app_secure：固定值 cf7jvlKrhvCIqrfJM6cp（下同）  usn：指定用户usn  mail：json串，邮件内容，里面可夹带货币，夹带货币的话字段名见前面的表格   例子：
+```json
+{"usn":1, "app_secure":"cf7jvlKrhvCIqrfJM6cp", "mail":{"title":"标题", "ban_diamond":1000} }
+```
+
+##### /api/gmtool/bestow_noui
+给指定usn的单个用户直接充值某种货币（与邮件不同，用户这边没有任何UI）
+
+参数： app_secure  usn：指定用户usn    其他：至少带六种货币中的一种（可带多种）  例子：
+```json
+{"usn":1, "app_secure":"cf7jvlKrhvCIqrfJM6cp", "diamond":1000, "gold":2000}
+```
