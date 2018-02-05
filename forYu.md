@@ -57,3 +57,41 @@
 ```json
 {"usn":1, "app_secure":"cf7jvlKrhvCIqrfJM6cp", "diamond":1000, "gold":2000}
 ```
+
+#### 事件类型
+#####  login_openID
+表示用户登录。每次用户开启客户端都至少对应一个此事件。例子：
+```json
+{"detail":{"key":"pNh6Z9HirHAGyUm4"},"etime":1517755238,"typ":"login_openID","usn":"100102"}
+```
+
+#####  login_wx
+表示用户调起微信登录（注：按照设计用户不会每次登录都调起微信）。  例子：
+```json
+{"detail":{"key":"wxopenidpNh6Z9HirHAGyUm4"},"etime":1517755238,"typ":"login_wx","usn":"100102"}
+```
+
+#####  login_qq
+表示用户调起QQ登录（注：按照设计用户不会每次登录都调起QQ）。  例子：
+```json
+{"detail":{"key":"qqopenidpNh6Z9HirHAGyUm4"},"etime":1517755238,"typ":"login_QQ","usn":"100102"}
+```
+
+#####  logout
+表示用户关闭客户端（注：此事件有没有完全取决于客户端有没有向平台发送logout）。  例子：
+```json
+{"etime":1517755238,"typ":"logout","usn":"100102"}
+```
+
+#####  new_user
+表示创建新用户（注：这之后应该会有此用户登录的事件，这两者不冲突）。  例子：
+```json
+{"detail":{"ver":1,"ban_score":0,"isguest":1,"RMB":0,"ban_gold":10000,"ctime":1517750418,"gold":0,"usn":100097,"ban_diamond":10,"diamond":0,"score":0,"credit":0,"nick":"default user"},"etime":1517750418,"typ":"new_user","usn":100097}
+```
+
+#####  pay_begin
+表示用户生成预订单（生成预订单在正式支付之前，有这一步不一定真的会支付）。  例子：
+```json
+{"detail":{"attach":"cheshi2","sign":"1352dd2e3a010336168419f8a773d711","app_id":"10000","userIdentity":"USER100000","total_fee":"88","notify_url":"http:\\/\\/www.baidu.com","para_id":"10000","mch_app_id":"http:\\/\\/www.baidu.com","stat":1,"order_no":"HUS00000011","version":"Pa2.5","pay_type":"0","child_para_id":"1","usn":"100000","mch_app_name":"cheshi2","device_id":"1","body":"cheshi2","mch_create_ip":"211.161.244.185"},"etime":1517816183,"typ":"pay_begin","usn":"100000"}
+```
+注：对于平台来说，detail里最重要的字段有： total_fee-支付RMB数额（100是1元）  order_no-订单号唯一编号  mch_app_name-商品ID
